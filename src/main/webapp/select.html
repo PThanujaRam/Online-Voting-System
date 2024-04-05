@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Election Voting Page</title>
+    <style>
+        /* Define custom shades of brown */
+        :root {
+            --brown-light: rgb(64, 128, 128);
+            --brown-medium: rgb(0, 128, 128);
+            --brown-dark: rgb(0, 64, 64);
+        }
+
+        /* Basic page styling */
+        body {
+            font-family: Georgia, serif;
+            
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-image:url('images/hh.jpg');
+            background-size: cover;
+            color: white;
+            padding: 162px;
+            background-repeat: no-repeat;
+            text-align: center;
+            height: 10px;
+            font-family: Garamond, serif;
+        }
+
+        /* Form styling */
+        #candidateForm {
+            max-width: 1000px;
+            margin: 0 auto;
+            margin-top: 70px;
+            padding: 60px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="file"],
+        textarea {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #BE5221;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="submit"] {
+            background-color: #BE5221;
+        }
+
+        /* Candidates section */
+        h2 {
+            color: #BE5221;
+        }
+
+        /* Customize the radio button styles */
+        /* CSS styles */
+input[type="radio"] {
+    width: 40px; /* Adjust the width as needed */
+    height: 40px; /* Adjust the height as needed */
+    margin-right: 5px;
+}
+
+.navbar {
+    background-color: black;
+    overflow: hidden;
+    padding: 10px 0;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar .left {
+    float: left;
+    
+}
+
+.navbar .right {
+    float: right;
+}
+.navbar li {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.navbar li a:hover {
+    background-color: rgb(128, 64, 0);
+}
+/* Apply styles to the button element */
+
+
+/* Style the button on hover */
+button:hover {
+  background-color: #cea15d; /* Darker background color on hover */
+}
+        /* Add more custom styles as needed */
+
+        
+    /* ... (Your existing styles) ... */
+
+    /* Add CSS for the candidates table */
+    #candidatesTable {
+        margin-top: 20px;
+        max-width: 1000px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    #candidatesTable table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    #candidatesTable th, #candidatesTable td {
+        padding: 10px;
+        border: 1px solid #ccc;
+        text-align: center;
+    }
+
+    #candidatesTable th {
+        background-color: #BE5221;
+        color: white;
+    }
+
+    #candidatesTable img {
+        max-width: 100px;
+        max-height: 100px;
+    }
+
+    /* Customize the radio buttons in the candidates table */
+    #candidatesTable input[type="radio"] {
+        width: 20px; /* Adjust the width as needed */
+        height: 20px; /* Adjust the height as needed */
+        margin-right: 5px;
+    }
+
+
+        .modal {
+            
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+            overflow: auto;
+            
+        }
+
+        .modal-content {
+            background-color: white;
+            max-width:max-content;
+            margin: 100px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal h2 {
+            color: #BE5221;
+        }
+
+        .modal p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .modal ol {
+            padding-left: 20px;
+        }
+
+        .modal label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .modal input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .modal button {
+            background-color: #BE5221;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .modal button#acceptTermsButton {
+            background-color: #BE5221;
+        }
+
+        /* Center Modal Content */
+        .modal-content {
+            position: absolute;
+            left: 50%;
+            top: 45%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+	 <div class="navbar">
+        <ul class="left">
+            <li><a href="index3.html" style="font-size: 30px;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Online Voting</a></li>
+            
+        </ul>
+        <ul class="right">
+            <li><a href="index.html" style="font-size: 30px;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Log Out</a></li>
+            
+        </ul>
+    </div>
+    <header></header>
+    <h1 style="text-align: center;font-size: 50px;">VOTING PAGE</h1>
+    <H2 style="margin-left: 200px;font-size: 30px;">Please read the instuctions clearly to complete the voting process:</H2>
+    <h4 style="margin-left: 230px;font-size: 20px;">1. First carefully read all the terms and conditions before starting the voting process<br>
+        2. Enter your voter ID         <br>
+        3. Agree to the terms and conditions   <br>
+        4. Select "Start Voting" option    <br>
+        5. Select the candidate you want to vote  <br>
+        6. Make sure you double check selected options and then submit your selection</h4>
+        <br><br><br> <h1 style="text-align: center;font-size: 35px;">CAST YOUR VOTE</h1>
+    <form id="candidateForm" enctype="multipart/form-data">
+        <label for="voterId">Voter ID:</label>
+        <input type="text" id="voterId" name="voterId" required><br><br>
+
+        <input type="checkbox" id="agree" name="agree" required>
+        <label for="agree">I agree that this is my Voter Id and solely mine. If in any other cases i agree that i will receive the ordered punishment.</label><br><br>
+
+        <button id="startVotingButton" type="button" style="margin-left: 400px;width: 200px;height: 50px;font-size: 20px;">Start Voting</button><br><br>
+        
+        <div id="candidatesTable">
+            <!-- Candidate table will be populated here -->
+        </div>
+<br><br>
+        <button type="submit" style="margin-left: 400px;width: 200px;height: 50px;font-size: 20px;">SUBMIT</button>
+    </form><br><br>
+    
+   <div id="termsAndConditionsModal" class="modal">
+        <div class="modal-content">
+            <h2>Terms and Conditions</h2>
+            <p>Before you can proceed to vote, please read and agree to the following terms and conditions:</p>
+            <ol>
+                <li>Eligibility: To participate in the online voting system, you must be a registered voter in the respective election, of legal voting age in your jurisdiction, and limited to one vote per eligible voter.</li>
+                <li>User Registration: You must create a valid user account with accurate information to participate.</li>
+                <li>Voting Process: Votes can only be cast during the designated voting period, and once submitted, they cannot be changed or revoked.</li>
+                <li>Security and Privacy: We employ state-of-the-art security measures to protect your personal information and voting choices.
+                    And We will not disclose your voting choices to any third party.
+                    </li>
+                <li>Conduct: Inappropriate behavior, including hacking, intimidation, or harassment of other voters, will not be tolerated.
+                    We reserve the right to disqualify any participant who engages in misconduct.</li>
+                <li>Accessibility:
+                     We are committed to making the online voting system accessible to all eligible voters, regardless of their physical abilities or limitations.
+                    Please contact us if you require assistance in casting your vote.</li>
+                <li>The results of the online vote are final and binding.</li>
+                <li>These terms and conditions are governed by the laws of [Jurisdiction], and any legal disputes will be settled in the appropriate jurisdiction.</li>
+            </ol>
+            <label for="agreeCheckbox" style="display: inline;">
+                <input type="checkbox" id="agreeCheckbox" required>
+                I agree to the terms and conditions of the election policy.
+            </label><br><br>
+            <button id="acceptTermsButton">Accept</button>
+        </div>
+    </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const termsAndConditionsModal = document.getElementById("termsAndConditionsModal");
+        const acceptTermsButton = document.getElementById("acceptTermsButton");
+        const startVotingButton = document.getElementById("startVotingButton");
+
+        // Handle "Start Voting" button click
+        startVotingButton.addEventListener("click", function () {
+            termsAndConditionsModal.style.display = "block"; // Show the modal
+        });
+
+        acceptTermsButton.addEventListener("click", function () {
+            const agreeCheckbox = document.getElementById("agreeCheckbox");
+
+            if (!agreeCheckbox.checked) {
+                alert("You must agree to the terms and conditions to proceed.");
+            } else {
+                termsAndConditionsModal.style.display = "none"; // Hide the modal
+            }
+        });
+
+        
+    });
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const startVotingButton = document.getElementById("startVotingButton");
+            const candidatesTable = document.getElementById("candidatesTable");
+
+            // Handle "Start Voting" button click
+            startVotingButton.addEventListener("click", function () {
+                const voterId = document.getElementById("voterId").value;
+
+                if (!voterId) {
+                    alert("Please enter your Voter ID.");
+                    return;
+                }
+
+                // Check if the voter ID exists
+                fetch(`/voterExists?voterId=${voterId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.exists) {
+                            alert("Voter ID already exists!");
+                        } else {
+                            // Voter does not exist, fetch and populate candidates
+                            fetch("/candidates")
+                                .then(response => response.json())
+                                .then(candidates => {
+                                    candidatesTable.innerHTML = ""; // Clear previous candidates
+                                    candidatesTable.innerHTML = `<h2>PLEASE SELECT A CANDIDATE:</h2>`; // Add header
+                                    candidatesTable.innerHTML += `<table border="1">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            
+                                                                            <th>Name</th>
+                                                                            <th>Position</th>
+                                                                            <th>Party</th>
+                                                                            <th>Image</th>
+                                                                            <th>Select</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody id="candidatesTableBody">
+                                                                        <!-- Candidate data will be populated here using JavaScript -->
+                                                                    </tbody>
+                                                                </table>`;
+                                    
+                                    const candidatesTableBody = document.getElementById("candidatesTableBody");
+
+                                    candidates.forEach(candidate => {
+                                        const row = candidatesTableBody.insertRow();
+
+                                        
+                                        // Display candidate information
+                                        row.insertCell().textContent = candidate.candidateName;
+                                        row.insertCell().textContent = candidate.candidatePosition;
+                                        row.insertCell().textContent = candidate.candidateParty;
+
+                                        const imageCell = row.insertCell();
+                                        const image = document.createElement("img");
+                                        image.src = 'data:image/png;base64,' + candidate.candidImage;
+                                        image.style.maxWidth = '100px';
+                                        image.style.maxHeight = '100px';
+                                        imageCell.appendChild(image);
+                                        
+                                        // Add a radio button for selecting the candidate's name
+                                        const selectCell = row.insertCell();
+                                        selectCell.style.textAlign = 'center';
+                                        selectCell.innerHTML = `<input type="radio" name="candidate" value="${candidate.candidateName}">`;
+
+                                    });
+                                });
+                        }
+                    });
+            });
+
+            document.getElementById("candidateForm").addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                // Get the selected candidate ID
+                const selectedCandidate = document.querySelector('input[name="candidate"]:checked');
+                const voterId = document.getElementById("voterId").value;
+
+                if (!selectedCandidate) {
+                    alert("Please select a candidate before casting your vote.");
+                    return;
+                }
+
+                // Prepare the vote request data
+                const voteRequest = {
+                    voterId: voterId,
+                    candidateId: selectedCandidate.value
+                };
+
+                // Send the vote request to the server
+                fetch("/election/cast-vote", {
+                    method: "POST",
+                    body: JSON.stringify(voteRequest),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                })
+                .then(response => response.text())
+                .then(message => {
+                    if (message === "Vote cast successfully!") {
+                        alert("Vote cast successfully!");
+                         window.location.href = "/thankyou.html";
+                    } else if (message === "Voter ID already exists!") {
+                        alert("You have already cast your vote!");
+                       
+                    } else {
+                        alert("An error occurred while casting your vote.");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="admin-styles.css">
+</head>
+<body>
+    <header>
+        <h1>Admin Panel</h1>
+    </header>
+    <main>
+        <section class="candidate-form">
+            <h2>Update Candidate Information</h2>
+            <form id="candidate-update-form">
+                <div class="form-group">
+                    <label for="candidate-name">Candidate Name</label>
+                    <input type="text" id="candidate-name" name="candidateName" required>
+                </div>
+                <div class="form-group">
+                    <label for="party">Party</label>
+                    <input type="text" id="party" name="party" required>
+                </div>
+                <div class="form-group">
+                    <label for="position">Position</label>
+                    <input type="text" id="position" name="position" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" rows="4" required></textarea>
+                </div>
+                <button type="submit">Update Candidate</button>
+            </form>
+        </section>
+    </main>
+    <style>
+        /* Basic CSS styling for the admin panel */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.candidate-form {
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #444;
+}
+
+    </style>
+    <script >
+        document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("candidate-update-form");
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        // Retrieve form data
+        const formData = new FormData(form);
+
+        // Send a POST request to your Spring Boot backend to update candidate information
+        fetch("/api/candidates/update", {
+            method: "POST",
+            body: formData,
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("Candidate information updated successfully!");
+                form.reset();
+            } else {
+                alert("Failed to update candidate information. Please try again.");
+            }
+        })
+        .catch(error => {
+            console.error("Error updating candidate information:", error);
+        });
+    });
+});
+
+    </script>
+</body>
+</html>

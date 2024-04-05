@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Election Voting Page</title>
+    <style>
+        /* Define custom shades of brown */
+        :root {
+            --brown-light: #D2B48C;
+            --brown-medium: #8B4513;
+            --brown-dark: #654321;
+        }
+
+        /* Basic page styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFF7E6; /* Off-white background */
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--brown-medium);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            
+        }
+
+        /* Form styling */
+        #votingForm {
+            max-width: 600px;
+            margin: 0 auto;
+            margin-top: 70px;
+            padding: 60px;
+            background-color: var(--brown-light);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="checkbox"] {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="checkbox"] {
+            width: auto;
+            margin-left: 5px;
+        }
+
+        button {
+            background-color: var(--brown-medium);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="submit"] {
+            background-color: var(--brown-dark);
+            align-items: center;;
+        }
+
+        /* Candidates section */
+        h2 {
+            color: var(--brown-medium);
+        }
+
+        /* Customize the radio button styles */
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        /* Add more custom styles as needed */
+
+    </style>
+</head>
+<body>
+    <header><h1>Election Voting Page</h1></header>
+    <form id="votingForm">
+        <label for="voterId">Voter ID:</label>
+        <input type="text" id="voterId" name="voterId" required><br><br>
+
+        <input type="checkbox" id="agree" name="agree" required>
+        <label for="agree">I agree to the terms and conditions of the election policy.</label><br><br>
+
+        <button id="startVotingButton" type="button">Start Voting</button><br><br>
+        <h2>Candidates:</h2>
+        <div id="candidates">
+            <!-- Candidates will be dynamically populated here -->
+        </div>
+
+        <button type="submit">Cast Vote</button>
+    </form>
+    <script>
+       document.addEventListener("DOMContentLoaded", function () {
+    const startVotingButton = document.getElementById("startVotingButton");
+    const candidatesDiv = document.getElementById("candidates");
+
+    // Handle "Start Voting" button click
+    startVotingButton.addEventListener("click", function () {
+        const voterId = document.getElementById("voterId").value;
+
+        if (!voterId) {
+            alert("Please enter your Voter ID.");
+            return;
+        }
+
+        // Check if the voter ID exists
+        fetch(`/voterExists?voterId=${voterId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.exists) {
+                    alert("Voter ID already exists!");
+                } else {
+                    // Voter does not exist, fetch and populate candidates
+                    fetch("/candidates")
+                        .then(response => response.json())
+                        .then(candidates => {
+                            candidatesDiv.innerHTML = ""; // Clear previous candidates
+                            candidates.forEach(candidate => {
+                                const label = document.createElement("label");
+                                label.innerHTML = `<input type="radio" name="candidate" value="${candidate.candidateName}">${candidate.candidateName}`;
+                                candidatesDiv.appendChild(label);
+                            });
+                        });
+                }
+            });
+    });
+
+  
+
+            document.getElementById("votingForm").addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                // Get the selected candidate ID
+                const selectedCandidateId = document.querySelector('input[name="candidate"]:checked');
+                const voterId = document.getElementById("voterId").value;
+
+                if (!selectedCandidateId) {
+                    alert("Please select a candidate before casting your vote.");
+                    return;
+                }
+
+                // Prepare the vote request data
+                const formData = new FormData(event.target);
+                const voteRequest = {
+                    voterId: formData.get("voterId"),
+                    candidateId: selectedCandidateId.value
+                };
+
+                // Send the vote request to the server
+                fetch("/election/cast-vote", {
+                    method: "POST",
+                    body: JSON.stringify(voteRequest),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                })
+                .then(response => response.text())
+                .then(message => {
+                    if (message === "Vote cast successfully!") {
+                        alert("Vote cast successfully!");
+                    } else if (message === "Voter ID already exists!") {
+                        alert("You have alreay casted your vote!");
+                    } else {
+                        alert("An error occurred while casting your vote.");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

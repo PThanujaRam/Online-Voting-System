@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Page</title>
+    <!-- Include necessary chart library (e.g., Chart.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Vote Data</h1>
+    <div>
+        <canvas id="voteChart"></canvas>
+    </div>
+    <script>
+    // JavaScript code to render the bar chart using AJAX to fetch vote data
+    fetch("/voting-data")
+        .then(response => response.json())
+        .then(data => {
+            var ctx = document.getElementById('voteChart').getContext('2d');
+            var candidateIds = data.map(voteCount => voteCount.candidateId);
+            var voteCounts = data.map(voteCount => voteCount.voteCount);
+
+            var voteChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: candidateIds,
+                    datasets: [{
+                        label: 'Vote Count',
+                        data: voteCounts,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        })
+        .catch(error => console.error('Error fetching vote data: ', error));
+</script>
+
+    <a href="votinginterface.html">votenow</a>
+</body>
+</html>

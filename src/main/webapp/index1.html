@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Welcome</title>
+    <style>
+        /* Define shades of brown using CSS variables */
+        :root {
+            --brown-light: #D2B48C;
+            --brown-medium: #8B4513;
+            --brown-dark: #654321;
+        }
+
+        /* Basic styling for the page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--brown-light); /* Light brown background */
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: var(--brown-dark); /* Dark brown heading text */
+            text-align: center;
+        }
+
+        /* Style links as buttons with brown background */
+        a {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: var(--brown-medium); /* Medium brown background */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        a:hover {
+            background-color: var(--brown-dark); /* Dark brown background on hover */
+        }
+
+        /* Styling for the "Add Candidate Page" section */
+        #pollStatusMessage {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--brown-medium); /* Medium brown text color */
+        }
+
+        #addCandidateButton {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: var(--brown-dark); /* Dark brown button background */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #addCandidateButton:hover, #resultButton:hover {
+            background-color: var(--brown-medium); /* Medium brown button background on hover */
+        }
+        
+        #resultButton{
+			
+			display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: var(--brown-dark); /* Dark brown button background */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+			
+		}
+    </style>
+</head>
+<body>
+    <h1>Welcome</h1>
+    <a href="adminlogin.html">Admin Login</a>
+    <a href="votinginterface.html">Vote Now</a>
+    <a href="candidates.html">Candidates</a>
+    
+    <h1>Add Candidate Page</h1>
+    
+    <!-- Display area for poll status message -->
+    <div id="pollStatusMessage"></div>
+    
+    <button id="addCandidateButton">Vote Now</button>
+    <button id="resultButton">Result</button>
+
+    <script>
+        // Function to check poll status and display the appropriate message
+        function checkPollStatus() {
+            const pollStatusMessage = document.getElementById("pollStatusMessage");
+
+            // Check if the poll has started by looking at the localStorage flag
+            if (localStorage.getItem("pollStarted") === "true") {
+                pollStatusMessage.textContent = "The poll has started. Please vote.";
+            } else {
+                pollStatusMessage.textContent = "There are no polls currently.";
+            }
+        }
+
+        // Check the poll status when the page loads
+        window.addEventListener("load", function() {
+            checkPollStatus();
+        });
+
+        // Function to navigate to votinginterface.html when "Vote Now" button is clicked
+        document.getElementById("addCandidateButton").addEventListener("click", function() {
+            // Check if the poll has started by looking at the localStorage flag
+            if (localStorage.getItem("pollStarted") === "true") {
+                alert("Navigating to voting page");
+                window.location.href = "select.html";
+            } else {
+                alert("Poll not started!");
+            }
+        });
+        // Function to handle the "Result" button click
+document.getElementById("resultButton").addEventListener("click", function() {
+    // Fetch and display the candidate with the maximum number of votes
+     if (localStorage.getItem("pollStarted") === "true") {
+                alert("Cant view Results poll is in progress!");
+            } else {
+				alert("You can now view Results!")
+            window.location.href="votingdata.html";}
+})
+    </script>
+</body>
+</html>

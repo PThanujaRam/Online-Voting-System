@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <!-- Include necessary chart library (e.g., Chart.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Basic styling for the layout */
+        body {
+            font-family: Georgia, serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: rgb(128, 64, 64);
+            color: #fff;
+            padding: 20px;
+            position: fixed;
+            height: 100%; /* Set the sidebar to full height */
+            overflow: auto; /* Enable scrolling if content overflows */
+        }
+
+        .content {
+            margin-left: 250px; /* Set the margin to match the sidebar width */
+            padding: 20px;
+        }
+
+        table {
+            width: 90%;
+            margin-left: 50px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        /* Add styles for the navigation links */
+        .sidebar a {
+            display: block;
+            padding: 10px 0;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .sidebar a:hover {
+            background-color: rgb(128, 0, 0);
+            margin-left: 20px;
+        }
+
+        /* Hide the candidates section by default */
+        #candidates {
+            display: none;
+            width: 170%;
+            font-style: italic;
+            
+        }
+
+        #result {
+    		display: none;
+    		width: 85%;
+    		margin-left: 150px; /* Set the width to 75% when it's displayed */
+}
+		#poll{
+			display: none;
+			margin-left: 150px;
+		}
+    </style>
+</head>
+<body>
+
+
+<div class="container">
+    <!-- Vertical navigation bar -->
+    <div class="sidebar">
+		<img src="LOGO.png"style="width: 100%;">
+        <h2 style="font-family: Garamond, serif;font-size:35px;">Admin Dashboard</h2>
+        <hr>
+        <a href="#" onclick="toggleDashoardSection()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-house-door-fill" viewBox="0 0 16 16">
+            <path
+                d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5Z"/>
+        </svg> Dashboard<i class="bi bi-house-door-fill"></i></a>
+        <a href="/insertcandidate.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                              fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
+            <path
+                d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+            <path
+                d="M2 13c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Z"/>
+        </svg> Add Candidate</a>
+        
+        <a href="#candidates" onclick="toggleCandidatesSection()"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                      height="16" fill="currentColor"
+                                                                      class="bi bi-view-list" viewBox="0 0 16 16">
+            <path
+                d="M3 4.5h10a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1H3zM1 2a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 2zm0 12a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 14z"/>
+        </svg> View all candidates</a> <!-- Added onclick event -->
+        
+        <a href="#poll" onclick="togglePollSection()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-receipt" viewBox="0 0 16 16">
+  <path d="M1.92.506a.5.5 0 0 1 .434.14L3 1.293l.646-.647a.5.5 0 0 1 .708 0L5 1.293l.646-.647a.5.5 0 0 1 .708 0L7 1.293l.646-.647a.5.5 0 0 1 .708 0L9 1.293l.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .801.13l.5 1A.5.5 0 0 1 15 2v12a.5.5 0 0 1-.053.224l-.5 1a.5.5 0 0 1-.8.13L13 14.707l-.646.647a.5.5 0 0 1-.708 0L11 14.707l-.646.647a.5.5 0 0 1-.708 0L9 14.707l-.646.647a.5.5 0 0 1-.708 0L7 14.707l-.646.647a.5.5 0 0 1-.708 0L5 14.707l-.646.647a.5.5 0 0 1-.708 0L3 14.707l-.646.647a.5.5 0 0 1-.801-.13l-.5-1A.5.5 0 0 1 1 14V2a.5.5 0 0 1 .053-.224l.5-1a.5.5 0 0 1 .367-.27zm.217 1.338L2 2.118v11.764l.137.274.51-.51a.5.5 0 0 1 .707 0l.646.647.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.509.509.137-.274V2.118l-.137-.274-.51.51a.5.5 0 0 1-.707 0L12 1.707l-.646.647a.5.5 0 0 1-.708 0L10 1.707l-.646.647a.5.5 0 0 1-.708 0L8 1.707l-.646.647a.5.5 0 0 1-.708 0L6 1.707l-.646.647a.5.5 0 0 1-.708 0L4 1.707l-.646.647a.5.5 0 0 1-.708 0l-.509-.51z"/>
+  <path d="M3 4.5a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm8-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5z"/>
+</svg> Poll</a>
+        
+        <a href="#result" onclick="toggleResultSection()"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                             height="16" fill="currentColor"
+                                                             class="bi bi-bar-chart-line-fill" viewBox="0 0 16 16">
+            <path
+                d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2z"/>
+        </svg> View Election Results</a>
+        
+        <a href="/index.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                  d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+            <path fill-rule="evenodd"
+                  d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+        </svg> Logout</a>
+        <p style="text-align: center;">@VoteSphere</p>
+    </div>
+
+    <!-- Content area -->
+    <div class="content" onclick="toggleDashoardSection()">
+        <table>
+            <tr>
+                <th>Entity</th>
+                <th>Total Count</th>
+            </tr>
+            <tr>
+                <td>Candidates</td>
+                <td id="candidateCount">Loading...</td>
+            </tr>
+            <tr>
+                <td>Users</td>
+                <td id="userCount">Loading...</td>
+            </tr>
+            <tr>
+                <td>Voters</td>
+                <td id="voterCount">Loading...</td>
+            </tr>
+        </table>
+
+        <!-- Candidates In Election section -->
+        <section id="candidates">
+            <h2 style="text-align: center;">Candidates In Election</h2>
+             
+    <table border="1" style="align-items: center;">
+        <thead>
+            <tr style="background-color: rgb(128, 0, 0);color: #fff; ">
+                <th>ID</th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Party</th>
+                <th>Manifestos</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody id="candidateTable">
+            <!-- Candidate data will be populated here dynamically using JavaScript -->
+        </tbody>
+    </table>
+        </section>
+        
+        <section id="poll">
+			
+			 <h2 style="text-align: center;font-size: 50px;">Poll Page</h2>
+			 <h3 style="text-align: center;font-size: 30px;color: rgb(64, 0, 0);">Poll Progress:</h3>
+			  <h4 style="text-align: center;font-size: 20px;"><div id="pollStatusMessage"></div></h4>
+			  <h4 style="text-align: center;font-size: 20px;">Instructions before starting or ending the poll:</h4>
+			  <!-- Instructions for starting the poll -->
+       <div style="display: flex; justify-content: center; align-items: center; gap: 20px;">
+        <!-- Instructions for starting the poll -->
+        <div>
+            <p>Before starting the poll, please follow these instructions:</p>
+            <ol>
+                <li>Ensure that all candidates are correctly listed.</li>
+                <li>Make sure that all eligible voters are informed.</li>
+                <li>Review and verify the poll settings.</li>
+            </ol>
+        </div>
+    
+        <!-- Instructions for ending the poll -->
+        <div>
+            <p>When you are ready to end the poll, please follow these instructions:</p>
+            <ol>
+                <li>Wait for all eligible voters to cast their votes.</li>
+                <li>Verify the final vote counts.</li>
+                <li>Click the "End Poll" button to conclude the poll.</li>
+            </ol>
+        </div>
+    </div>
+
+    <div style="display: flex; justify-content: center; gap: 150px; margin-top: 20px;margin-left: 5px;">
+        <button id="startPollButton" style="font-size: 24px; padding: 10px 20px;background-color: aquamarine;">Start Poll</button>
+        <button id="endPollButton" style="font-size: 24px; padding: 10px 20px;background-color: darksalmon;">End Poll</button>
+    </div>
+</section>
+        
+        <section id="result">
+            <h2 style="text-align: center;">Vote Data</h2>
+            <hr>
+            <div>
+                <canvas id="voteChart"></canvas>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script>
+	
+	 // Function to handle the "Start Poll" button click
+        document.getElementById("startPollButton").addEventListener("click", function() {
+            alert("Poll started!");
+            // Set a flag in localStorage to indicate that the poll has started
+            localStorage.setItem("pollStarted", "true");
+            // Update the poll status message
+            document.getElementById("pollStatusMessage").textContent = "Poll is in progress";
+        });
+
+        // Function to handle the "End Poll" button click
+        document.getElementById("endPollButton").addEventListener("click", function() {
+            alert("Poll ended!");
+            // Remove the flag from localStorage when the poll ends
+            localStorage.removeItem("pollStarted");
+            // Update the poll status message
+            document.getElementById("pollStatusMessage").textContent = "No poll currently";
+        });
+
+        // Function to check and update the poll status message when the page loads
+        function checkPollStatus() {
+            const pollStatusMessage = document.getElementById("pollStatusMessage");
+
+            // Check if the poll has started by looking at the localStorage flag
+            if (localStorage.getItem("pollStarted") === "true") {
+                pollStatusMessage.textContent = "Poll is in progress";
+            } else {
+                pollStatusMessage.textContent = "No poll currently";
+            }
+        }
+
+        // Check the poll status when the page loads
+        window.addEventListener("load", function() {
+            checkPollStatus();
+        });
+        
+        
+    // JavaScript to fetch and display counts
+    fetch('/api/candidates/count')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('candidateCount').textContent = data;
+        });
+
+    fetch('/api/users/count')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('userCount').textContent = data;
+        });
+
+    fetch('/api/voters/count')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('voterCount').textContent = data;
+        });
+
+    // Function to toggle the visibility of the Candidates section
+     document.addEventListener("DOMContentLoaded", function() {
+            fetch('/candidates')
+                .then(response => response.json())
+                .then(data => {
+                    var candidateTable = document.getElementById("candidateTable");
+
+                    data.forEach(function(candidate) {
+                        var row = candidateTable.insertRow(-1); // Add a row to the table
+
+                        // Add cells to the row
+                        var cell1 = row.insertCell(0);
+                        var cell2 = row.insertCell(1);
+                        var cell3 = row.insertCell(2);
+                        var cell4 = row.insertCell(3);
+                        var cell5 = row.insertCell(4);
+                        var cell6 = row.insertCell(5);
+
+                        // Populate cells with candidate data
+                        cell1.innerHTML = candidate.id;
+                        cell2.innerHTML = candidate.candidateName;
+                        cell3.innerHTML = candidate.candidatePosition;
+                        cell4.innerHTML = candidate.candidateParty;
+                        cell5.innerHTML = candidate.candidateManifestos;
+
+                        // Create and add an image element to the last cell
+                        var image = document.createElement("img");
+                        image.src = "data:image/jpeg;base64," + candidate.candidImage;
+                        image.width = 100;
+                        image.height = 100;
+                        cell6.appendChild(image);
+                    });
+                })
+                .catch(error => {
+                    console.error("Error fetching data:", error);
+                });
+        });
+    // Function to toggle the visibility of the Candidates section
+   function toggleCandidatesSection() {
+    const candidatesSection = document.getElementById('candidates');
+    const entityCountTable = document.querySelector('.content table');
+    const resultSection = document.getElementById('result');
+    const pollSection = document.getElementById('poll');
+    candidatesSection.style.display = 'block'; // Always display candidates when this link is clicked
+    entityCountTable.style.display = 'none'; // Hide the entity count table
+    resultSection.style.display = 'none'; // Hide the result section
+     pollSection.style.display='none'; 
+    fetchCandidates(); // Fetch candidates when the section is displayed
+}
+
+
+function toggleDashoardSection() {
+    const candidatesSection = document.getElementById('candidates');
+    const entityCountTable = document.querySelector('.content table');
+    const resultSection = document.getElementById('result');
+    const pollSection = document.getElementById('poll');
+    candidatesSection.style.display = 'none'; // 
+    entityCountTable.style.display = 'block'; // 
+    resultSection.style.display = 'none'; // Hide the result section
+     pollSection.style.display='none'; 
+}
+
+function togglePollSection() {
+    const candidatesSection = document.getElementById('candidates');
+    const entityCountTable = document.querySelector('.content table');
+    const resultSection = document.getElementById('result');
+    const pollSection = document.getElementById('poll');
+    
+    candidatesSection.style.display = 'none'; // 
+    entityCountTable.style.display = 'none'; // 
+    resultSection.style.display = 'none'; // Hide the result section
+   pollSection.style.display='block'; 
+}
+    function toggleResultSection() {
+        const candidatesSection = document.getElementById('candidates');
+        const entityCountTable = document.querySelector('.content table');
+        const resultSection = document.getElementById('result');
+		const pollSection = document.getElementById('poll');
+        candidatesSection.style.display = 'none';
+        entityCountTable.style.display = 'none';
+        resultSection.style.display = 'block';
+ pollSection.style.display='none'; 
+        // JavaScript code to render the bar chart using AJAX to fetch vote data
+        fetch("/voting-data")
+            .then(response => response.json())
+            .then(data => {
+                var ctx = document.getElementById('voteChart').getContext('2d');
+                // Calculate the width based on the available space (75% of the content width)
+        		var chartWidth = document.querySelector('.content').offsetWidth * 1.75;
+	
+        // Set the canvas width and height
+       			 ctx.canvas.width = chartWidth;
+        		ctx.canvas.height = 500; // Set an appropriate height
+                var candidateIds = data.map(voteCount => voteCount.candidateId);
+                var voteCounts = data.map(voteCount => voteCount.voteCount);
+
+                var voteChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: candidateIds,
+                        datasets: [{
+                            label: 'Vote Count',
+                            data: voteCounts,
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => console.error('Error fetching vote data: ', error));
+    }
+</script>
+</body>
+</html>

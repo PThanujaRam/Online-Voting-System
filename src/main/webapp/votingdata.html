@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Voting Data</title>
+    <style>
+		/* Define custom shades of brown */
+        :root {
+            --brown-light: #D2B48C;
+            --brown-medium: #8B4513;
+            --brown-dark: #654321;
+        }
+
+        
+        header {
+            background-image:url('images/hh.jpg');
+            background-size: cover;
+            color: white;
+            padding: 162px;
+            background-repeat: no-repeat;
+            text-align: center;
+            height: 10px;
+            font-family: Garamond, serif;
+        }
+
+        
+        /* styles.css */
+        body {
+            background-color: #f0f0f0;
+             font-family: Georgia, serif;
+            margin: 0;
+    padding: 0;
+        }
+
+        table {
+            margin-left:400px;
+            
+            border-collapse: collapse;
+            width: 50%;
+            max-width: 500px;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px 12px;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #winningMessage {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+        }
+        
+        .navbar {
+    background-color: rgb(0, 0, 0);
+    overflow: hidden;
+    padding: 10px 0;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar .left {
+    float: left;
+    
+}
+
+.navbar .right {
+    float: right;
+}
+.navbar li {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar li a {
+    display: block;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.navbar li a:hover {
+    background-color: rgb(128, 64, 0);
+}
+
+button {
+  background-color: rgb(128, 64, 64); /* Background color */
+  color: #fff; /* Text color */
+  padding: 30px 40px; /* Padding around the text */
+  border: none; /* Remove the button border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Change cursor to a hand pointer on hover */
+  font-size: 25px; /* Font size */
+  text-align: center; /* Center the text within the button */
+  text-decoration: none; /* Remove underlines from links (if the button is a link) */
+  font-size: large;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+  margin-left: 900px;
+}
+
+/* Style the button on hover */
+button:hover {
+  background-color: rgb(128, 64, 64); /* Darker background color on hover */
+}
+
+    </style>
+</head>
+<body>
+	<div class="navbar">
+        <ul class="left">
+            <li><a href="index3.html" style="font-size: 30px;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Online Voting</a></li>
+            
+        </ul>
+        <ul class="right">
+            <li><a href="index.html" style="font-size: 30px;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Log Out</a></li>
+            
+        </ul>
+    </div>
+    <header></header>
+    <h1 style="text-align: center;font-size: 50px;">Voting Data</h1>
+    <p id="winningMessage" style="margin-left: 300px;font-size: 30px;color: rgb(64, 0, 0);"></p>
+    <table>
+        <thead>
+            <tr>
+                <th>Candidate ID</th>
+                <th>Vote Count</th>
+            </tr>
+        </thead>
+        <tbody id="votingData">
+            <!-- Data will be displayed here -->
+        </tbody>
+    </table><br><br><br>
+    <a href="index3.html"><button >Back</button></a>
+    <script>
+        // You can use JavaScript to fetch and populate the data here
+        async function fetchData() {
+            const response = await fetch('/voting-data'); // Make a GET request to your endpoint
+            const data = await response.json();
+
+            // Sort the data by descending vote counts
+            data.sort((a, b) => b.voteCount - a.voteCount);
+
+            const votingDataElement = document.getElementById('votingData');
+            const winningMessageElement = document.getElementById('winningMessage');
+
+            // Loop through the data and create table rows
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.candidateId}</td>
+                    <td>${item.voteCount}</td>
+                `;
+                votingDataElement.appendChild(row);
+            });
+
+            // Determine the winning candidate with the highest vote count
+            const winningCandidate = data[0];
+            winningMessageElement.textContent = `The candidate ${winningCandidate.candidateId} has won the election with ${winningCandidate.voteCount} votes.`;
+
+            
+        }
+
+        fetchData(); // Call the fetchData function to populate the table 
+    </script>
+</body>
+</html>

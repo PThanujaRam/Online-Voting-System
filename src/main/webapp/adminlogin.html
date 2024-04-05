@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login</title>
+</head>
+<body>
+    <div class="login-container">
+    <h2>Admin Login</h2>
+    <form id="loginForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+        
+        <label for="key">Key:</label>
+        <input type="password" id="key" name="key" required><br><br>
+
+        <input type="submit" value="Login">
+    </form>
+
+    <script >document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent the form from submitting
+    
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        var key = document.getElementById("key").value;
+    
+        // Replace this with your actual admin username and password validation logic
+        var adminUsername = "admin";
+        var adminPassword = "admin";
+        var adminkey = "9703";
+        
+    
+        if (username === adminUsername && password === adminPassword && key==adminkey) {
+            // Successful login, you can redirect or perform other actions here
+            window.location.href = "admindashboard.html";
+        } else {
+            // Invalid credentials, display an error message
+            alert("Invalid username or password or key. Please try again.");
+        }
+    });
+    </script>
+    <style>
+   body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 400px;
+}
+
+h2 {
+    margin-top: 0;
+    color: #333333;
+}
+
+form {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555555;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 70%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+    </style>
+</body>
+</html>

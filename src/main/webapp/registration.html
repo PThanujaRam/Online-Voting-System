@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add User</title>
+    <style>
+        /* Define minimalist shades of brown */
+        :root {
+            --brown-light: #131210;
+            --brown-medium: #8B4513;
+            --brown-dark: #654321;
+            --brown-text: #333; /* Brown text color */
+        }
+
+        /* Style to create a blur effect for text fields */
+        .blur-input {
+            background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent white background */
+            border: none; /* Remove the border */
+            border-radius: 5px;
+            padding: 10px;
+            width: 85%;
+            margin-bottom: 3px;
+        }
+
+        body {
+           
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--brown-text); /* Brown text color */
+        }
+
+        h1 {
+           
+           
+            font-family: Georgia, serif;
+        }
+        a {
+            color:   #6A3E3E;
+        }
+
+        .colored-section {
+            background-color: #6A3E3E;
+            height: 130vh;
+            width: 35%; /* 1/4th of the window width */
+            display: inline-block;
+            float: left;
+            
+        }
+
+        .form-section {
+            width: 40%; /* 3/4th of the window width */
+
+            display: inline-block;
+            padding: 0px 109px;
+           
+        }
+
+        form {
+            
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 40px;
+            
+          
+   
+        }
+
+        label {
+            color: var(--brown-light); /* Medium brown label text */
+            font-family: Georgia, serif;
+            font-size: 22px;
+        }
+
+        input[type="submit"] {
+            background-color: #552222; /* Dark brown button background */
+            color: white;
+            border: none;
+            padding: 10px 80px;
+            border-radius: 5px;
+            cursor: pointer;
+            
+
+            
+        }
+
+        /* Customize the button hover style */
+        input[type="submit"]:hover {
+            background-color: var(--brown-light); /* Medium brown on hover */
+        }
+    </style>
+</head>
+<body>
+   
+    <div class="colored-section">
+        <img src="LOGO.png" style="width: 100%; display: block; height: 40%; margin-top: 130px;">
+        
+    </div>
+    <br><br><br>
+    <div class="form-section">
+        <h1 style="text-align: center;">  Register to VoteSphere</h1>
+        <form id="userForm">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username" class="blur-input" required><br>
+
+        <label for="adharNumber">Aadhar Number:</label><br>
+        <input type="text" id="adharNumber" name="adharNumber" class="blur-input" required><br>
+
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" class="blur-input" required><br>
+        
+        <label for="confirmPassword">Confirm Password:</label><br>
+            <input type="password" id="confirmPassword" name="confirmPassword" class="blur-input" required><br>
+
+        <label for="mobileNumber">Mobile Number:</label><br> 
+        <input type="text" id="mobileNumber" name="mobileNumber" class="blur-input" required><br><br>
+
+        <input type="submit" value="Register">
+        
+    </form>
+    <p style="font-size: 20px; text-align: center;color: rgb(14, 12, 12); font-family: Georgia, 'Times New Roman', Times, serif;">Already signed up to vote?<a href="login.html" >Login here!</p></a>
+    </div>
+    <script>
+        document.getElementById('userForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Get user input
+    const username = document.getElementById('username').value;
+    const adharNumber = document.getElementById('adharNumber').value;
+    const password = document.getElementById('password').value;
+    const mobileNumber = document.getElementById('mobileNumber').value;
+    const confirmPassword = document.getElementById('confirmPassword').value; 
+     if (password !== confirmPassword) {
+                alert('Password and Confirm Password do not match');
+                return;
+            }
+
+    // Create user object
+    const user = {
+        username: username,
+        adharNumber: adharNumber,
+        password: password,
+        mobileNumber: mobileNumber
+    };
+
+    // Send POST request to the Spring Boot API
+    fetch('/api/users/add', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Server Response:', data); 
+        if (data.id) {
+            alert('User added successfully!');
+            window.location.href='login.html';
+            // You can redirect to another page or perform other actions here
+        } else if (typeof data === 'string' && data.includes('Adhar Number is already in use')) {
+            alert('Adhar Number is already in use. Please use a different one.');
+        } else {
+            alert('Error adding user. Please try again.');
+        }
+    })
+    .catch(error => {
+		
+			if (typeof data === 'string' && data.includes('Adhar Number is already in use')) {
+            alert('Adhar Number is already in use. Please use a different one.');
+		}else{
+        console.error('Error:', error);
+        alert('An error occurred while adding the user.');}
+    });
+});
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Candidate Details</title>
+</head>
+<body>
+	<header>
+       <img src="LOGO.png" style="width: 150px; float: left;"><h1>Add Candidates to Election</h1>
+    </header>
+
+    
+    <form id="candidateForm" enctype="multipart/form-data">
+		<h2>Fill out the Form to Add Candidates </h2>
+        <label for="candidateName">Candidate Name:</label>
+        <input type="text" id="candidateName" name="candidateName" required><br><br>
+
+        <label for="candidatePosition">Candidate Position:</label>
+        <input type="text" id="candidatePosition" name="candidatePosition" required><br><br>
+
+        <label for="candidateParty">Candidate Party:</label>
+        <input type="text" id="candidateParty" name="candidateParty" required><br><br>
+        
+        <label for="candidateManifestos">Candidate Manifesto:</label>
+		<textarea id="candidateManifestos" name="candidateManifestos" ></textarea><br><br>
+		
+		<label for="candidImage">Candid Image:</label>
+        <input type="file" id="candidImage" name="candidImage" accept="image/*" required><br>
+
+
+        <button type="button" onclick="addCandidate()">Add Candidate</button>
+       
+    </form>
+    <div id="notification" style="display: none;"></div>
+    
+ 
+
+     
+
+    <script src="script.js"></script>
+    <style>
+        /* Basic CSS styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        header {
+    	background-color:  rgb(128, 0, 0);
+    	color: #fff;
+   		 text-align: center;
+   		 padding: 5px 0;
+		}
+
+        h1 {
+            background-color:  rgb(128, 0, 0);
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        h2 {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        form {
+            max-width: 800px;
+            margin: 80px auto;
+            padding: 65px;
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        main {
+   		 max-width: 800px;
+    	margin: 20px auto;
+    	padding: 20px;
+    	background-color: #fff;
+    	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+
+        button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        #notification {
+            display: none;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</body>
+</html>

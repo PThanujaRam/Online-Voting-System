@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Candidates List</title>
+    	
+    <style>
+        /* Define custom shades of brown */
+        :root {
+            --brown-light: #D2B48C;
+            --brown-medium: #8B4513;
+            --brown-dark: #654321;
+        }
+
+        /* Add CSS for the card */
+        .candidate-card {
+            align-items: center;
+            padding: 30px;
+            margin-left: 60px;
+            display: inline-block;
+            overflow: hidden;
+            transition: height 0.3s; /* Add transition for smooth height change */
+            background-color: var(--brown-light); /* Use a light shade for background */
+            color: rgb(0, 0, 0); /* White text color for better contrast */
+             margin-bottom: 40px;
+             
+        }
+
+        .candidate-details {
+            display: none;
+        }
+
+        .show-details .candidate-details {
+            display: block;
+        }
+
+        /* Customize the click event styles */
+        .candidate-card:hover {
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add a shadow on hover */
+        }
+
+        /* Customize the image style */
+        .candidate-card img {
+            width: 200px;
+            height: 200px;
+            /* Use a medium shade for image border */
+            border-radius: 100%; /* Make the image round */
+            margin: 0 auto; /* Center the image horizontally */
+            display: block;
+        }
+        header {
+            background-image:url('images/hh.jpg');
+            background-size: cover;
+            color: white;
+            padding: 162px;
+            background-repeat: no-repeat;
+            text-align: center;
+            height: 10px;
+            font-family: Garamond, serif;
+        }
+
+        /* Customize the details paragraph styles */
+        .candidate-details p {
+            margin: 5px 0;
+        }
+
+        /* Customize the card height for initial display */
+        .candidate-card:not(.show-details) {
+            height: 250px; /* Set a default height */
+        }
+        /* styles.css */
+body {
+    margin: 0;
+    padding: 0;
+     font-family: Georgia, serif;
+     }
+
+.navbar {
+    background-color: rgb(0, 0, 0);
+    overflow: hidden;
+    padding: 10px 0;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar .left {
+    float: left;
+    
+}
+
+.navbar .right {
+    float: right;
+}
+.navbar li {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar li a {
+    display: block;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.navbar li a:hover {
+    background-color: rgb(128, 64, 0);
+}
+/* Apply styles to the button element */
+button {
+  background-color: rgb(128, 128, 128); /* Background color */
+  color: #fff; /* Text color */
+  padding: 30px 40px; /* Padding around the text */
+  border: none; /* Remove the button border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Change cursor to a hand pointer on hover */
+  font-size: 25px; /* Font size */
+  text-align: center; /* Center the text within the button */
+  text-decoration: none; /* Remove underlines from links (if the button is a link) */
+  font-size: large;
+  display: flex;
+  align-items: center;
+ 
+  margin-left: 900px;
+}
+
+/* Style the button on hover */
+button:hover {
+  background-color: rgb(128, 64, 64); /* Darker background color on hover */
+}
+
+/* Style for the search bar and container */
+.search-container {
+  display: flex;
+  align-items: center;
+  color: #D2B48C;
+  margin-left: 750px;
+
+}
+
+.search-container input[type="text"] {
+  padding: 15px 50px; /* Add padding to the input field */
+  border: none;
+  border-radius: 5px;
+  outline: none; /* Remove the default input field outline */
+  background-color: beige;
+  margin-right: 10px; /* Adjust margin for spacing */
+}
+
+.search-container button {
+  background-color: var(--brown-medium); /* Use the medium brown color for the button */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 15px 20px; /* Adjust button padding */
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.search-container button:hover {
+  background-color: var(--brown-dark); /* Darker brown color on hover */
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <ul class="left">
+            <li><a href="index3.html" style="font-size: 30px;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Online Voting</a></li>
+            
+        </ul>
+        <ul class="right">
+            <li><a href="index.html" style="font-size: 30px;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Log Out</a></li>
+            
+        </ul>
+    </div>
+    <header><br><br><br><br><br><br>
+   <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search candidates...">
+    <button id="searchButton">Search</button>
+</div>
+
+</header>
+
+<h1 style="text-align: center;font-size: 50px;">CANDIDATES LIST</h1>
+    <H2 style="margin-left: 200px;font-size: 30px;">Check out all the candidates participating in this election.</H2><br>
+    
+    <div id="candidateContainer">
+        <!-- Candidate cards will be populated here dynamically using JavaScript -->
+    </div>
+	<a href="index3.html"><button >Back</button></a>
+    <script>
+        // Function to fetch candidate data from the Spring controller
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('/candidates')
+                .then(response => response.json())
+                .then(data => {
+                    var candidateContainer = document.getElementById("candidateContainer");
+
+                    data.forEach(function(candidate) {
+                        var card = document.createElement("div");
+                        card.className = "candidate-card";
+
+                        var image = document.createElement("img");
+                        image.src = "data:image/jpeg;base64," + candidate.candidImage;
+                        image.width = 200;
+                        image.height = 200;
+
+                        var details = document.createElement("div");
+                        details.className = "candidate-details";
+
+                        var name = document.createElement("p");
+                        name.innerText = candidate.candidateName;
+
+                        var party = document.createElement("p");
+                        party.innerText = "Party: " + candidate.candidateParty;
+
+                        var position = document.createElement("p");
+                        position.innerText = "Position: " + candidate.candidatePosition;
+
+                        var manifestos = document.createElement("p");
+                        manifestos.innerText = "Manifestos: " + candidate.candidateManifestos;
+
+                        // Add a click event listener to the card
+                        card.addEventListener("click", function() {
+                            // Toggle the "show-details" class
+                            card.classList.toggle("show-details");
+
+                            // Adjust the height of the card based on details visibility
+                            if (card.classList.contains("show-details")) {
+                                card.style.height = "auto";
+                            } else {
+                                card.style.height = "250px"; // You can set a default height here
+                            }
+                        });
+
+                        details.appendChild(party);
+                        details.appendChild(position);
+                        details.appendChild(manifestos);
+
+                        card.appendChild(image);
+                        card.appendChild(name);
+                        card.appendChild(details);
+                        candidateContainer.appendChild(card);
+                    });
+                })
+                .catch(error => {
+                    console.error("Error fetching data:", error);
+                });
+        });
+        // Function to handle the search
+    document.addEventListener("DOMContentLoaded", function () {
+        var searchInput = document.getElementById("searchInput");
+        var searchButton = document.getElementById("searchButton");
+
+        searchButton.addEventListener("click", function () {
+            var searchTerm = searchInput.value.trim().toLowerCase();
+
+            var candidateCards = document.querySelectorAll(".candidate-card");
+            candidateCards.forEach(function (card) {
+                var candidateName = card.querySelector("p").innerText.toLowerCase();
+
+                if (candidateName.includes(searchTerm)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                    
+                }
+            });
+        });
+    });
+    </script>
+</body>
+</html>

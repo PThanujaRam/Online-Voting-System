@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+        /* Define minimalist shades of brown */
+        :root {
+            
+            --brown-medium: #8B4513;
+            --brown-dark: #654321;
+            --brown-text: #333; /* Brown text color */
+        }
+
+        /* Style to create a blur effect for text fields */
+        .blur-input {
+            background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent white background */
+            border: none; /* Remove the border */
+            border-radius: 5px;
+            padding: 10px;
+            width: 85%;
+            margin-bottom: 3px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--brown-text); /* Brown text color */
+          
+        }
+
+        h1 {
+            color: var(--brown-dark); /* Use dark brown for headings */
+            text-align: center;
+            font-family: Georgia, serif;
+        }
+
+        .colored-section {
+            background-color: var(--brown-medium); /* Medium brown background for the colored section */
+            height: 100vh;
+            width: 35%;  /* 25% of the window width */
+            display: inline-block;
+            float: left;
+        }
+
+        .form-section {
+           
+            width: 40%; /* 75% of the window width */
+            display: inline-block;
+            padding: 80px 108px;
+            border-radius: 0 5px 5px 0; /* Rounded border on the right side */
+        }
+
+        form {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 40px;
+        }
+
+        label {
+            color: var(--brown-medium); /* Medium brown label text */
+            font-size: 25px;
+            font-family: Georgia, serif;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 85%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 10px;
+        }
+
+        input[type="submit"] {
+            background-color: var(--brown-medium); /* Medium brown button background */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Customize link color */
+        a {
+            color: var(--brown-medium); /* Use medium brown for links */
+        }
+
+        /* Add hover styles for the button */
+        input[type="submit"]:hover {
+            background-color: var(--brown-dark); /* Dark brown on hover */
+        }
+    </style>
+     <script>
+        function validateForm() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            if (username === "" || password === "") {
+                alert("Both fields are required");
+                return false; // Prevent form submission
+            }
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/login", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        // Successful login on the server-side
+                        window.location.href = "/index3.html"; // Redirect to candidates.html
+                    } else {
+                        // Failed login on the server-side
+                        alert("Invalid username or password");
+                    }
+                }
+            };
+            xhr.send("username=" + username + "&password=" + password);
+
+            return false; // Prevent form submission
+        }
+        
+    </script>
+</head>
+<body>
+    <div class="colored-section">
+        <img src="LOGO.png" style="width: 100%; display: block; height: 50%; margin-top: 130px;">
+        
+    </div>
+    <div class="form-section">
+    <h1>Login to VoteSphere</h1>
+    <form id="loginForm" action="/login" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" class="blur-input" required><br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" class="blur-input" required><br><br>
+
+        <!-- Add the reCAPTCHA widget here -->
+        <div class="g-recaptcha" data-sitekey="your-site-key"></div>
+        
+        <br>
+
+        <input type="submit" value="Login" onclick="return validateForm();">
+    </form>
+    <p style="text-align: center;">Don't have an account? <a href="/registration.html">Create an account</a></p>
+</div>
+
+</body>
+</html>

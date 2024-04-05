@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Online Voting System</title>
+    <meta property="og:title" content="Helpa template" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style data-tag="reset-style-sheet">
+      html {  line-height: 1.15;}body {  margin: 0;}* {  box-sizing: border-box;  border-width: 0;  border-style: solid;}p,li,ul,pre,div,h1,h2,h3,h4,h5,h6,figure,blockquote,figcaption {  margin: 0;  padding: 0;}button {  background-color: transparent;}button,input,optgroup,select,textarea {  font-family: inherit;  font-size: 100%;  line-height: 1.15;  margin: 0;}button,select {  text-transform: none;}button,[type="button"],[type="reset"],[type="submit"] {  -webkit-appearance: button;}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner {  border-style: none;  padding: 0;}button:-moz-focus,[type="button"]:-moz-focus,[type="reset"]:-moz-focus,[type="submit"]:-moz-focus {  outline: 1px dotted ButtonText;}a {  color: inherit;  text-decoration: inherit;}input {  padding: 2px 4px;}img {  display: block;}html { scroll-behavior: smooth  }
+    </style>
+    <style data-tag="default-style-sheet">
+      html {
+        font-family: Karla;
+        font-size: 16px;
+      }
+
+      body {
+        font-weight: 400;
+        font-style:normal;
+        text-decoration: none;
+        text-transform: none;
+        letter-spacing: normal;
+        line-height: 1.15;
+        color: var(--dl-color-gray-black);
+        background-color: var(--dl-color-gray-white);
+
+      }
+    </style>
+    <script>
+		 
+	</script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;display=swap"
+      data-tag="font"
+    />
+    <!--This is the head section-->
+    <!-- <style> ... </style> -->
+  </head>
+  <body>
+    <link rel="stylesheet" href="./style.css" />
+    <div>
+      <link href="./index.css" rel="stylesheet" />
+
+     
+
+        </div>
+        <section class="home-hero">
+          <div class="home-main">
+            <div class="home-content">
+              <header data-thq="thq-navbar" class="home-navbar-interactive">
+                <div class="branding-branding branding-root-class-name1">
+                  <img
+                    src="LOGO.png" width="150px;"
+                  />
+                  
+                </div>
+                <div
+                  data-thq="thq-navbar-nav"
+                  data-role="Nav"
+                  class="home-desktop-menu"
+                ><br>
+                  <div class="home-links">
+                    <a href="candidates.html" class="home-link navLink" style="font-size: 25px;">
+                      Candidates
+                    </a>
+                    <a  class="home-link1 navLink" style="font-size: 25px;  " id="addCandidateButton">
+                      Polls
+                    </a>
+                    
+                    
+                    <a  class="home-link2 navLink" style="font-size: 25px;" id="resultButton">Results</a>
+                  </div>
+                  
+                </div>
+              
+                
+              </header>
+              <div class="home-hero-section">
+                <div class="home-header"><br>
+                  <h1 class="home-heading">You can make a difference</h1>
+                  <p class="home-caption">
+                    Online Voting is an election system that facilitates voters
+                    to record their secure and secret ballot electronically and
+                    can access from the remote areas.Online voting systems aim to make the voting process more accessible to a wider range of individuals, including those with physical disabilities, the elderly, and people living in remote or overseas locations.
+                  </p>
+                </div>
+                
+              </div>
+            </div>
+            <div class="home-image">
+             <a href="index.html"> <button class="home-button3 button">log out</button></a>
+            </div>
+          </div>
+          
+          <div class="home-details-container">
+            <div class="home-details">
+              <div class="home-container02">
+                <div class="home-category">
+                  <h2 class="home-heading1">
+                    <div id="pollStatusMessage" style="color: white;"></div>
+                  </h2>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </section>
+        <section class="home-mission">
+          <div class="home-container03">
+            <div class="home-content1">
+              <div class="home-main1">
+                <span class="home-title">CANDIDATES</span>
+                <div class="home-header1">
+                  <h2 class="home-heading1">
+                    You can view all the candidates information and their image
+                    ,party and their manifestos.
+                  </h2>
+                </div>
+              </div>
+              <div class="home-highlights"></div>
+            </div>
+            <a href="candidates.html"><button type="button" class="button"id="addCandidateButton">View Candidates</button>
+          </div>
+          <div class="home-images"><div class="home-row"></div></div>
+        </section>
+        <section class="home-steps">
+          <div class="home-content2">
+            <div class="home-information">
+              <div class="home-main2">
+                <div class="home-header2">
+                  <h2 class="home-heading2">
+                    <span class="home-text05">
+                      Security and confidentiality of the voter are taken very seriously. Voters can only vote once and their voting choices remain anonymous.
+                    </span>
+                    <br />
+                    <br class="home-text07" />
+                    <br />
+                    <br class="home-text09" />
+                  </h2>
+                </div>
+              </div>
+              <div class="home-button5">
+               <a href="select.html"> <button class="button"><span>VOTE NOW</span></button></a>
+              </div>
+            </div>
+            <div class="steps-steps-list">
+              <div class="steps-list">
+                <div class="steps-section">
+                  <div class="number-number number">
+                    <span class="number-text"><span>1</span></span>
+                  </div>
+                  <span class="steps-caption">
+                    <span>Click on Vote Now</span>
+                  </span>
+                </div>
+                <div class="steps-divider"></div>
+                <div class="steps-section1">
+                  <div class="number-number number number-root-class-name">
+                    <span class="number-text"><span>2</span></span>
+                  </div>
+                  <span class="steps-caption1">
+                    <span>Enter Your Details</span>
+                  </span>
+                </div>
+                <div class="steps-divider1"></div>
+                <div class="steps-section2">
+                  <div class="number-number number number-root-class-name1">
+                    <span class="number-text"><span>3</span></span>
+                  </div>
+                  <span class="steps-caption2">
+                    <span>Submit by accepting the terms</span>
+                  </span>
+                </div>
+                <div class="steps-divider2"></div>
+                <div class="steps-section3">
+                  <div class="number-number number number-root-class-name2">
+                    <span class="number-text"><span>4</span></span>
+                  </div>
+                  <span class="steps-caption3">
+                    <span>Your Vote was submitted</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <section class="home-updates">
+          <div class="home-content3">
+            <div class="home-details1">
+              <div class="home-header3">
+                <h2 class="home-heading3">Results</h2>
+                <p class="home-caption1">
+                  After the election ends, on approval of election officer, the
+                  result can be generated which is automatically tabulated. This
+                  is solely for security purposes. The outcome can be published
+                  and shared with the voters on your eVote website.
+                </p>
+              </div>
+              <div class="home-action">
+                <div class="home-input">
+                 <a href="votingdata.html"> <button class="home-button7 button">View Results</button></a>
+                </div>
+                <div class="home-agreement">
+                  <div class="home-container04">
+                    <div class="home-states">
+                      <div id="tos-active" class="home-checkbox">
+                        <svg viewBox="0 0 1024 1024" class="home-icon12">
+                          <path
+                            d="M823.168 225.835l-439.168 439.168-183.168-183.168c-16.683-16.683-43.691-16.683-60.331 0s-16.683 43.691 0 60.331l213.333 213.333c16.683 16.683 43.691 16.683 60.331 0l469.333-469.333c16.683-16.683 16.683-43.691 0-60.331s-43.691-16.683-60.331 0z"
+                          ></path>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="home-caption2"></div>
+                  <div>
+                    <div class="home-container06">
+                      <script>
+                        // Create a boolean to represent the state of the toggle
+                        let tosToggle = false;
+
+                       
+                        // Define the toggleTos function to hide/show the elements based on the state of the toggle
+                        function toggleTos() {
+                          if (tosToggle) {
+                            document.getElementById('tos').style.display = 'flex';
+                            document.getElementById('tos-active').style.display = 'none';
+                          } else {
+                            document.getElementById('tos').style.display = 'none';
+                            document.getElementById('tos-active').style.display = 'flex';
+                          }
+                          tosToggle = !tosToggle;
+                        }
+                        
+                         // Function to navigate to votinginterface.html when "Vote Now" button is clicked
+        document.getElementById("addCandidateButton").addEventListener("click", function() {
+            // Check if the poll has started by looking at the localStorage flag
+            if (localStorage.getItem("pollStarted") === "true") {
+                alert("Navigating to voting page");
+                window.location.href = "select.html";
+            } else {
+                alert("Poll not started!");
+            }
+        });
+             // Function to check poll status and display the appropriate message
+        function checkPollStatus() {
+            const pollStatusMessage = document.getElementById("pollStatusMessage");
+
+            // Check if the poll has started by looking at the localStorage flag
+            if (localStorage.getItem("pollStarted") === "true") {
+                pollStatusMessage.textContent = "The poll has started. Please vote.";
+            } else {
+                pollStatusMessage.textContent = "There are no polls currently.";
+            }
+        }
+
+        // Check the poll status when the page loads
+        window.addEventListener("load", function() {
+            checkPollStatus();
+        });
+        // Function to handle the "Result" button click
+document.getElementById("resultButton").addEventListener("click", function() {
+    // Fetch and display the candidate with the maximum number of votes
+     if (localStorage.getItem("pollStarted") === "true") {
+                alert("Cant view Results poll is in progress!");
+            } else {
+				alert("You can now view Results!")
+            window.location.href="votingdata.html";}
+})
+                      </script>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="home-slider">
+              <div class="home-slides">
+                <div class="slide-active slide">
+                  <img
+                    alt="image"
+                    src="https://th.bing.com/th/id/R.551c4156a67f41a2b8f855ed216692e3?rik=ZcJmeRCtg2A%2fqw&amp;riu=http%3a%2f%2fwww.supersonicstrack.com%2fwp-content%2fuploads%2f2012%2f02%2fresults-image.png&amp;ehk=cW8SLCEhSt780TGZARNEgxcZKFdAi74Ckykt%2f%2b5%2fPvE%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0"
+                    class="home-image3"
+                  />
+                  
+                </div>
+                <div class="slide">
+                  <img
+                    alt="image"
+                    src="https://images.unsplash.com/photo-1670991761566-534b07539db5?ixid=Mnw5MTMyMXwwfDF8YWxsfDEzfHx8fHx8Mnx8MTY3MTAxNTg5Ng&amp;ixlib=rb-4.0.3&amp;w=1400"
+                    class="home-image4"
+                  />
+                  
+                </div>
+                
+              </div>
+              <div class="home-buttons-container">
+                <div class="home-buttons1"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- Footer -->
+<footer class="w3-center w3-padding-64" style="background-color: #552222;">
+  <a href="#home" class="w3-button w3-white"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+  <div class="w3-xlarge w3-section" >
+    <i class="fa fa-facebook-official w3-hover-opacity" style="color:bisque"></i>
+    <i class="fa fa-instagram w3-hover-opacity" style="color:bisque"></i>
+    <i class="fa fa-snapchat w3-hover-opacity" style="color:bisque"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity" style="color:bisque"></i>
+    <i class="fa fa-twitter w3-hover-opacity" style="color:bisque"></i>
+    <i class="fa fa-linkedin w3-hover-opacity" style="color:bisque"></i>
+  </div>
+  <p style="color:bisque">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">CLUS4OVS</a></pstyle="color:white">
+</footer>
+ 
+        
+        <div>
+          
+        </div>
+      </div>
+    </div>
+    <script
+      data-section-id="navbar"
+      src="https://unpkg.com/@teleporthq/teleport-custom-scripts"
+    ></script>
+  </body>
+</html>

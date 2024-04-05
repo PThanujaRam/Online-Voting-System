@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Candidate Dashboard</h1>
+    </header>
+    <style>
+        /* Basic CSS styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+#candidates {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.candidate-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    width: calc(33.33% - 20px); /* Adjust the width to your preference */
+    cursor: pointer;
+}
+
+.candidate-card img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.candidate-info {
+    display: none;
+    padding: 10px;
+    background-color: #eee;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* Style for showing candidate info */
+.candidate-info.active {
+    display: block;
+}
+
+    </style>
+    <main>
+        <section id="candidates">
+            <div class="candidate-card" onclick="showCandidateInfo(1)">
+                <img src="candidate1.jpg" alt="Candidate 1">
+                <h2>Candidate 1</h2>
+                <p>Party: Party A</p>
+                <p>Position: Position 1</p>
+                <div id="candidate-info-1" class="candidate-info">
+                    <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </div>
+            <div class="candidate-card" onclick="showCandidateInfo(2)">
+                <img src="candidate2.jpg" alt="Candidate 2">
+                <h2>Candidate 2</h2>
+                <p>Party: Party B</p>
+                <p>Position: Position 2</p>
+                <div id="candidate-info-2" class="candidate-info">
+                    <p>Description: Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p>
+                </div>
+            </div>
+            <div class="candidate-card" onclick="showCandidateInfo(3)">
+                <img src="candidate3.jpg" alt="Candidate 3">
+                <h2>Candidate 3</h2>
+                <p>Party: Party C</p>
+                <p>Position: Position 3</p>
+                <div id="candidate-info-3" class="candidate-info">
+                    <p>Description: Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.</p>
+                </div>
+            </div>
+        </section>
+        <script>
+            function showCandidateInfo(candidateId) {
+    const candidateInfo = document.getElementById(`candidate-info-${candidateId}`);
+    candidateInfo.classList.toggle("active");
+}
+
+        </script>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
